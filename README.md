@@ -1,6 +1,6 @@
 # GreenFlava
 
-| Our team: Smirnov Nazar, Khodos Alexander, Kanyuka Mykyta
+| Our team: Smirnov Nazar(Back-end), Khodos Alexander(Front-end), Kanyuka Mykyta(Front-end)
 
 # What is this project
 
