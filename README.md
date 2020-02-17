@@ -4,4 +4,4 @@
 
 # What is this project
 
-## It's a project which provides users with the ability to store music, group it into playlists, and listen to it.
+## This project offering services of different types of cargo delivery based on drivers and clients locations.
