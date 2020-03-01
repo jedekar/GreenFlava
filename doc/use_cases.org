@@ -20,7 +20,6 @@ None
   System -> User: User data
 #+end_src
 
-#+RESULTS:
 [[file:images/login.png]]
 
 *** Alternative Flows
@@ -54,7 +53,6 @@ None
   System -> User: User data
 #+end_src
 
-#+RESULTS:
 [[file:images/singup.png]]
 
 *** Alternative flows
@@ -86,7 +84,6 @@ Driver is autorised
   System -> Driver: Orders list
 #+end_src
 
-#+RESULTS:
 [[file:images/get_local_orders.png]]
 
 *** Alternative Flows
@@ -115,7 +112,6 @@ Driver is autorised
   System -> Driver: Driver info
 #+end_src
 
-#+RESULTS:
 [[file:images/accept_order.png]]
 
 *** Alternative Flows
@@ -150,7 +146,6 @@ Customer is autorised
   System -> Customer: Customer info
 #+end_src
 
-#+RESULTS:
 [[file:images/create_order.png]]
 
 *** Alternative Flows
@@ -182,7 +177,6 @@ Customer is autorised
   System -> Customer: Customer info
 #+end_src
 
-#+RESULTS:
 [[file:images/appoint_driver.png]]
 
 *** Alternative Flows
