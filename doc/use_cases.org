@@ -1,0 +1,199 @@
+#+STARTUP: inlineimages
+
+* User
+** Log In
+Unauthorised user wants to log into the system.
+
+*** Actors
+User, System
+*** Preconditions
+None
+*** Normal Flow
+1. User opens login page
+2. User inputs info and sends it to System
+3. System verifies User exists
+4. System gives User their data
+
+#+begin_src plantuml :file images/login.png
+  User -> System: Username, password
+  System -> System: Verification
+  System -> User: User data
+#+end_src
+
+#+RESULTS:
+[[file:images/login.png]]
+
+*** Alternative Flows
+None
+*** Exceptions
+- User does not exist
+- Bad password
+*** Result
+User is authorised
+*** Additional requirements
+None
+** Sign Up
+
+Unauthorised user wants to sign up.
+
+*** Actors
+User, System
+*** Preconditions
+None
+*** Normal Flow
+1. User opens Sign Up page
+2. User inputs Username, Password, Email
+3. User sends this info to System
+4. System creates User in Database
+5. System gives User their data
+
+#+begin_src plantuml :file images/singup.png
+  User -> System: Username, password, email
+  System -> System: Validation
+  System -> System: Create User
+  System -> User: User data
+#+end_src
+
+#+RESULTS:
+[[file:images/singup.png]]
+
+*** Alternative flows
+None
+*** Exceptions
+- Username is not valid
+- Password is not valid
+- User with username already exists
+*** Result
+User was added to database
+*** Additional requirements
+None
+* Driver
+** Get local orders
+Driver wants to get list of orders near their location
+
+*** Actors
+Driver, System
+*** Preconditions
+Driver is autorised
+*** Normal Flow
+1. Driver requests System for information on local orders
+2. System checks for orders near Drive
+3. System sends list of orders to Driver
+
+#+begin_src plantuml :file images/get_local_orders.png
+  Driver -> System: Request for orders
+  System -> System: Check
+  System -> Driver: Orders list
+#+end_src
+
+#+RESULTS:
+[[file:images/get_local_orders.png]]
+
+*** Alternative Flows
+None
+*** Exceptions
+- Driver is not authorised
+*** Result
+Driver recieves list of orders near them
+*** Additional requirements
+None
+** Accept order
+Driver wants to accept order
+
+*** Actors
+Driver, System
+*** Preconditions
+Driver is autorised
+*** Normal Flow
+1. Driver accepts order
+2. System adds Driver to order drivers list
+3. System sends Driver info
+
+#+begin_src plantuml :file images/accept_order.png
+  Driver -> System: 'Accept order' request
+  System -> System: Add Driver to list
+  System -> Driver: Driver info
+#+end_src
+
+#+RESULTS:
+[[file:images/accept_order.png]]
+
+*** Alternative Flows
+None
+*** Exceptions
+- Driver is not authorised
+- Order does not exist
+- Order is completed or canceled
+*** Result
+Driver accepted order
+*** Additional requirements
+None
+* Customer
+** Create order
+Customer wants to create order.
+
+*** Actors
+Customer, System
+*** Preconditions
+Customer is autorised
+*** Normal Flow
+1. Customer opens 'Create order' page
+2. Customer inputs order info
+3. Customer sends order info to System
+4. System creates order
+5. System sends Customer info
+
+#+begin_src plantuml :file images/create_order.png
+  Customer -> System: Order info
+  System -> System: Validation
+  System -> System: Create order
+  System -> Customer: Customer info
+#+end_src
+
+#+RESULTS:
+[[file:images/create_order.png]]
+
+*** Alternative Flows
+None
+*** Exceptions
+- Customer is not authorised
+- Order info is not valid
+*** Result
+Customer created order
+*** Additional requirements
+None
+** Appoint driver
+Customer wants to appoint driver from order drivers list to handle order.
+
+*** Actors
+Customer, System
+*** Preconditions
+Customer is autorised
+*** Normal Flow
+1. Customer appoints a driver from list to handle order
+2. System appoints driver to handle order
+3. System changes order status
+4. System sends Customer info
+
+#+begin_src plantuml :file images/appoint_driver.png
+  Customer -> System: Order info
+  System -> System: Appoint driver
+  System -> System: Change order status
+  System -> Customer: Customer info
+#+end_src
+
+#+RESULTS:
+[[file:images/appoint_driver.png]]
+
+*** Alternative Flows
+None
+*** Exceptions
+- Customer is not authorised
+- Order does not exist
+- Order is completed or canceled
+- Driver does not exist
+- Driver has not accepted order
+*** Result
+Order is handeled by the driver
+*** Additional requirements
+None
