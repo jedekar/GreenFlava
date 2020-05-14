@@ -1,7 +1,9 @@
 * Green Flava - Cargo delivery service
 ** Structure
 The project consists of two independent parts: client and server.
+
 The client part uses React.
+
 The server part uses MongoDB + Socket.io + Express.
 
 ** Usage
@@ -10,3 +12,8 @@ npm install
 npm start
 #+end_src
 
+** Authors
+See [[AUTHORS.org][AUTHORS]]
+
+** License
+See [[LICENSE][LICENSE]]
