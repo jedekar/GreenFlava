@@ -2,7 +2,7 @@ const Order = require("./models/order_model");
 
 /**
  *
- * @module driver_ection
+ * @module driver_action
  *
  */
 
@@ -51,7 +51,7 @@ function fixOrder({ driver_id, order_id }, callback) {
             return;
         }
         if (order.status == "Cancel") {
-            callback(Error("Order is cancel"));
+            callback(Error("Order is canceled"));
             return;
         }
         if (order.status == "Fixed") {
@@ -95,7 +95,7 @@ function cancelOrder({ driver_id, order_id }, callback) {
             return;
         }
         if (order.status == "Cancel") {
-            callback(Error("Order is cancel"));
+            callback(Error("Order is canceled"));
             return;
         }
         if (order.status == "Fixed") {

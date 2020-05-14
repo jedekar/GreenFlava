@@ -5,7 +5,7 @@ const md5 = require("md5");
 
 /**
  *
- * @module user_ection
+ * @module user_action
  *
  */
 
@@ -61,7 +61,7 @@ function loginUser({ password, email }, callback) {
                     token: JWToken,
                 });
             } else {
-                callback(Error("User is not exist"));
+                callback(Error("User doesn't exist"));
             }
         })
         .catch((err) => {
@@ -75,7 +75,7 @@ function loginUser({ password, email }, callback) {
  *
  * @param {String} password - User's password
  * @param {String} email - User's email
- * @param {createUserCallback} callback - The callback witch will process with return data.
+ * @param {createUserCallback} callback - The callback which will process with return data.
  */
 function createUser({ password, email }, callback = () => {}) {
     /*
@@ -174,16 +174,16 @@ function setDriver({ creator_id, driver_id, order_id }, callback) {
             return;
         }
         if (order.creator != creator_id) {
-            callback(Error("You have not rights on this ection"));
+            callback(Error("You don't have rights for this action"));
             /*socket.emit("user.setDriver.error", {
-                message: "You have not rights on this ection",
+                message: "You have not rights on this action",
             });*/
             return;
         }
         if (order.status != "Created") {
-            callback(Error("The order has no allowed status for this ection"));
+            callback(Error("The order has no allowed status for this action"));
             /*socket.emit("user.setDriver.error", {
-                message: "The order has no allowed status for this ection",
+                message: "The order has no allowed status for this action",
             });*/
             return;
         }
@@ -235,11 +235,11 @@ function cancelOrder({ creator_id, order_id }, callback) {
             return;
         }
         if (order.creator != creator_id) {
-            callback(Error("You have not rights on this ection"));
+            callback(Error("You don't have rights for this action"));
             return;
         }
         if (order.status == "Fixed") {
-            callback(Error("Oreder fixed"));
+            callback(Error("Order is fixed"));
             return;
         }
         Order.update(
@@ -272,7 +272,7 @@ function getUser({ user_id }, callback) {
             return;
         }
         if (user == null) {
-            callback(Error("User is not exist"));
+            callback(Error("User doesn't exist"));
             return;
         }
         callback(null, user);

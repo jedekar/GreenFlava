@@ -88,8 +88,8 @@ io = socketIO(server);
 //const acceptOrder = require("./lib/acceptOrder");
 //const fixOrder = require("./lib/fixOrder");
 
-const driver_ection = require("./lib/driver_ection");
-const user_ection = require("./lib/user_ection");
+const driver_action = require("./lib/driver_action");
+const user_action = require("./lib/user_action");
 
 let userSessions = {};
 
@@ -102,7 +102,7 @@ io.on("connection", (socket) => {
                 email
             }
         */
-        user_ection.createUser(data, (err, data) => {
+        user_action.createUser(data, (err, data) => {
             socket.emit("user.create", { err: err.message, data: null });
         });
     });
@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
             }
         */
 
-        user_ection.loginUser(data, (err, userData) => {
+        user_action.loginUser(data, (err, userData) => {
             // data = {token}
             if (err) {
                 console.log("Err: " + err.message);
@@ -154,7 +154,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        user_ection.getUser({ user_id: data.user }, (err, user) => {
+        user_action.getUser({ user_id: data.user }, (err, user) => {
             socket.emit("user.get", { err: err.message, data: user });
         });
     });
@@ -180,7 +180,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        user_ection.createOrder(
+        user_action.createOrder(
             {
                 creator_id: user._id,
                 location_from: data.location_from,
@@ -223,7 +223,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        user_ection.setDriver(
+        user_action.setDriver(
             {
                 creator_id: user._id,
                 driver_id: data.driver,
@@ -267,7 +267,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        user_ection.cancelOrder(
+        user_action.cancelOrder(
             {
                 creator_id: user._id,
                 order_id: data.order,
@@ -334,7 +334,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        driver_ection.acceptOrder(
+        driver_action.acceptOrder(
             {
                 driver_id: user._id,
                 order_id: data.order,
@@ -392,7 +392,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        driver_ection.fixOrder(
+        driver_action.fixOrder(
             {
                 driver_id: user._id,
                 order_id: data.order,
@@ -445,7 +445,7 @@ io.on("connection", (socket) => {
             return;
         }
 
-        driver_ection.cancelOrder(
+        driver_action.cancelOrder(
             socket,
             {
                 driver_id: data.driver,

@@ -1,4 +1,4 @@
-const user_ection = require("../user_ection");
+const user_action = require("../user_action");
 const { authenticateToken } = require("../helpers");
 
 const mongoose = require("mongoose");
@@ -8,7 +8,7 @@ mongoose.connect(mongoDB);
 const User = require("../models/user_model");
 const Order = require("../models/order_model");
 
-describe("User ection test", () => {
+describe("User action test", () => {
     beforeAll(async () => {
         await User.remove({});
         await Order.remove({});
@@ -23,14 +23,14 @@ describe("User ection test", () => {
         await mongoose.connection.close();
     });
 
-    it("has a module user_ection", () => {
-        expect(user_ection).toBeDefined();
+    it("has a module user_action", () => {
+        expect(user_action).toBeDefined();
     });
 
     /*
     describe("create user", () => {
         let data = { password: 1, email: "foo@bar.com" };
-        user_ection.createUser(data, (err, user) => {
+        user_action.createUser(data, (err, user) => {
             User.findOne({ email: "foo@bar.com" }).then((user) => {
                 const expacted = "foo@bar.com";
                 const actual = user.email;
@@ -42,9 +42,9 @@ describe("User ection test", () => {
     describe("login user", () => {
         let data = { password: 1, email: "foo@bar.com" };
         return;
-        user_ection.createUser(data, (err, user) => {
+        user_action.createUser(data, (err, user) => {
             User.findOne({ email: "foo@bar.com" }, console.log);
-            user_ection.loginUser(data, (err, userData) => {
+            user_action.loginUser(data, (err, userData) => {
                 if (err) {
                     throw err;
                 }
