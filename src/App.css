@@ -1,0 +1,132 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.no-bottomline:hover {
+  text-decoration: none;
+}
+.no-bottomline:active {
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 8vh;
+  background: rgb(49, 59, 49);
+  color: whitesmoke;
+}
+
+.nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding-top: 1%;
+}
+
+.nav-links-main {
+  color: whitesmoke;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: bold;
+  display: block;
+}
+
+.about-text {
+  font-size: 20px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+}
+
+.social-link {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+  background: #ddd;
+  text-decoration: none;
+  color: #555;
+}
+
+#home {
+  background: url(https://images.unsplash.com/photo-1473445730015-841f29a9490b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)
+    no-repeat center center fixed;
+  display: table;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  background-size: cover;
+}
+
+#userorders {
+  background: url(https://www.lookcycle.com/media/cache/product_large_thumbnail/page-categorie/bike-category-page-cover-fullscreen-background-2732x1536-road-bikes-endurance-2020.jpg)
+    no-repeat center center fixed;
+  display: table;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  background-size: cover;
+}
+
+.landing-text {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.landing-text h3 {
+  font-size: 300%;
+  color: #ddd;
+}
+
+.center {
+  width: 100%;
+}
+
+.orders-box {
+  width: 400px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  background: #fff;
+  font-size: 12px;
+  color: #000000;
+  border-radius: 4px;
+}
+
+.copyright-text {
+  position: fixed;
+  bottom: 10px;
+}
+
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("/w3images/mac.jpg");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
