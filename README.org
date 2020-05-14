@@ -1,5 +1,7 @@
 * Green Flava - Cargo delivery service
 ** Authors
 [[https://github.com/jedekar][Alex Khodos]]
+
 [[https://github.com/Toolf][Nazar Smirnov]]
+
 [[https://github.com/niksonax][Nick Kanuyka]]
