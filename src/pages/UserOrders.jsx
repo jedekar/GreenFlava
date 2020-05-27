@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
+import Nav from "react-bootstrap/Nav";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -116,26 +117,19 @@ function UserOrders() {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
-    /* <div class="container">
-      <div class="row">
-        <div class="orders-box align-self-center">
-          <h2 className="mt-5">Yours orders list:</h2>
-
-          <Button variant="primary" onClick={() => setModalShow(true)}>
-            Create order
-          </Button>
-
-          <MyVerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
-        </div>
-      </div>
-    </div> */
     <div id="userorders">
       <div class="d-flex justify-content-center mt-5">
-        <Card className="text-center" style={{ width: "35rem" }}>
-          <Card.Header as="h5">Your orders</Card.Header>
+        <Card style={{ width: "35rem" }}>
+          <Card.Header>
+            <Nav fill variant="tabs" defaultActiveKey="#first">
+              <Nav.Item>
+                <Nav.Link href="#first">All orders</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#link">My orders</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Card.Header>
           <Card.Body>
             <Card.Title>Looking for drivers:</Card.Title>
             <Card.Title>In process:</Card.Title>
@@ -144,6 +138,8 @@ function UserOrders() {
             With supporting text below as a natural lead-in to additional
             content.
           </Card.Text> */}
+          </Card.Body>
+          <Card.Footer className="text-muted">
             <Button
               className="btn btn-success"
               onClick={() => setModalShow(true)}
@@ -155,8 +151,7 @@ function UserOrders() {
               show={modalShow}
               onHide={() => setModalShow(false)}
             />
-          </Card.Body>
-          {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+          </Card.Footer>
         </Card>
       </div>
     </div>

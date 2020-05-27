@@ -10,13 +10,17 @@
   text-decoration: none;
 }
 
-.nav {
+.navbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
   min-height: 8vh;
   background: rgb(49, 59, 49);
   color: whitesmoke;
+}
+
+.logo {
+  padding-left: 7%;
 }
 
 .nav-links {
@@ -103,30 +107,17 @@
   width: 100%;
 }
 
-.orders-box {
-  width: 400px;
-  box-sizing: border-box;
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  background: #fff;
-  font-size: 12px;
-  color: #000000;
-  border-radius: 4px;
-}
-
 .copyright-text {
   position: fixed;
   bottom: 10px;
 }
 
-.bgimg-1 {
-  background-position: center;
-  background-size: cover;
-  background-image: url("/w3images/mac.jpg");
-  min-height: 100%;
-}
-
 .w3-bar .w3-button {
   padding: 16px;
+}
+
+.w3-display-bottomright-about {
+  position: absolute;
+  right: 0;
+  bottom: 8%;
 }
