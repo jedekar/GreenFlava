@@ -16,14 +16,13 @@ const uri =
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect().then(() => console.log("Successfully connect to MongoDB"));
 */
+//
+//"mongodb+srv://admin:1@cluster0-psx9m.mongodb.net/test?retryWrites=true&w=majority"
 mongoose
-    .connect(
-        "mongodb+srv://admin:1@cluster0-psx9m.mongodb.net/test?retryWrites=true&w=majority",
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect("mongodb://127.0.0.1:27017/IPZdatabase", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then(() => console.log("Successfully connect to MongoDB"))
     .catch((err) => console.error("Connection error", err));
 
@@ -32,7 +31,7 @@ mongoose
 const app = express();
 
 //------ROUTING------------------
-
+/*
 app.get("/users", (req, res) => {
     console.log("HERE");
     res.send(global.userSessions);
@@ -69,6 +68,7 @@ app.get("/getOrders", (req, res) => {
 app.get("/getOrder", (req, res) => {
     Order.findById("5eb946628df1cc0d68f7be60", (err, order) => res.send(order));
 });
+*/
 //-------------------------------
 
 //-------Socket server-------------------
@@ -79,14 +79,6 @@ server.listen(5000);
 console.log("Servet start on port 5000");
 
 io = socketIO(server);
-
-//const createUser = require("./lib/createUser");
-//const loginUser = require("./lib/loginUser");
-//const createOrder = require("./lib/createOrder");
-//const setDriver = require("./lib/setDriver");
-//const cancelOrder = require("./lib/cancelOrder");
-//const acceptOrder = require("./lib/acceptOrder");
-//const fixOrder = require("./lib/fixOrder");
 
 const driver_action = require("./lib/driver_action");
 const user_action = require("./lib/user_action");
@@ -130,7 +122,6 @@ io.on("connection", (socket) => {
         let user;
         try {
             user = authenticateToken(data.token);
-            // потрібна додати параметри ордера
         } catch (err) {
             socket.emit("user.createOrder", {
                 err: "Bad JWT. Autorize please.",
