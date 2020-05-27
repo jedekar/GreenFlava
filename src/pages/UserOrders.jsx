@@ -8,6 +8,16 @@ import Col from "react-bootstrap/Col";
 import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
 
+class Order {
+  constructor(title, locationFrom, locationTo, date, price) {
+    this.title = title;
+    this.locationFrom = locationFrom;
+    this.locationTo = locationTo;
+    this.date = date;
+    this.price = price;
+  }
+}
+
 function MyVerticallyCenteredModal(props) {
   return (
     <Modal
@@ -112,9 +122,23 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
+function OrderEntry(props) {
+  return (<div>
+          {props.order.title
+	   + '    ' + props.order.locationFrom
+	   + ' -> ' + props.order.locationTo
+	   + '    ' + props.order.price + '$'}
+          </div> )
+}
+
 function UserOrders() {
   const [modalShow, setModalShow] = React.useState(false);
-
+  let orders = [];
+  for (let i = 0; i < 10; i++) {
+    orders.push(new Order('name'+i, 'location'+i, 'location'+(i+1), i, i+100));
+  }
+  console.log(orders[1]);
+  
   return (
     /* <div class="container">
       <div class="row">
@@ -137,25 +161,17 @@ function UserOrders() {
         <Card className="text-center" style={{ width: "35rem" }}>
           <Card.Header as="h5">Your orders</Card.Header>
           <Card.Body>
-            <Card.Title>Looking for drivers:</Card.Title>
-            <Card.Title>In process:</Card.Title>
-            {/* <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional
-            content.
-          </Card.Text> */}
-            <Button
-              className="btn btn-success"
-              onClick={() => setModalShow(true)}
-            >
-              Create order
-            </Button>
-
-            <MyVerticallyCenteredModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-            />
-          </Card.Body>
+	    <Card.Title>
+	      <OrderEntry order={orders[1]}></OrderEntry>
+              <OrderEntry order={orders[2]}></OrderEntry>
+              <OrderEntry order={orders[3]}></OrderEntry>
+              <OrderEntry order={orders[4]}></OrderEntry>
+              <OrderEntry order={orders[5]}></OrderEntry>
+              <OrderEntry order={orders[6]}></OrderEntry>
+              <OrderEntry order={orders[7]}></OrderEntry>
+              <OrderEntry order={orders[8]}></OrderEntry>
+	    </Card.Title>
+            </Card.Body>
           {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
         </Card>
       </div>
