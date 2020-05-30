@@ -37,9 +37,6 @@ function HomePage() {
           <i class="fa fa-pinterest-p w3-hover-opacity"></i>
           <i class="fa fa-twitter w3-hover-opacity"></i>
           <i class="fa fa-linkedin w3-hover-opacity"></i> */}
-          <a href="about" class="no-bottomline nav-links-main about-text lead">
-            About us
-          </a>
         </div>
       </header>
     </div>
