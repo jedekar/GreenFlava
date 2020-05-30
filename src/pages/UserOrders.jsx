@@ -184,7 +184,7 @@ function UserOrders() {
     orders.push(new Order('name'+i, 'location'+i, 'location'+(i+1), i, i+100));
   }
   console.log(orders[1]);
-  
+
   return (
     <div id="userorders">
       <div class="d-flex justify-content-center mt-5">
