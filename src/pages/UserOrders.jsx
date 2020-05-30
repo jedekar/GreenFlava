@@ -9,7 +9,7 @@ import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 
-function MyVerticallyCenteredModal(props) {
+function OrderCreateModal(props) {
   return (
     <Modal
       {...props}
@@ -21,12 +21,6 @@ function MyVerticallyCenteredModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">New order</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <h4>Cargo type:</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p> */}
         <FormGroup>
           <Label>Cargo type:</Label>
           <Input
@@ -113,8 +107,58 @@ function MyVerticallyCenteredModal(props) {
   );
 }
 
+function OrderInfoModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Order info</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Label>Cargo type:</Label>
+        <Row className="show-grid">
+          <Col xs={6} md={6}>
+            <Label>Where from:</Label>
+          </Col>
+          <Col xs={6} md={6}>
+            <Label>Where to:</Label>
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col xs={6} md={6}>
+            <Label>Weight:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Length:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Width:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Height:</Label>
+          </Col>
+        </Row>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Additional comment:</label>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={props.onHide}>
+          Cancel
+        </Button>
+        <Button className="btn-success">Take order</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 function UserOrders() {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(false);
+  const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
 
   return (
     <div id="userorders">
@@ -131,8 +175,20 @@ function UserOrders() {
             </Nav>
           </Card.Header>
           <Card.Body>
+            <Button
+              className="btn btn-success"
+              onClick={() => setModalShowOrderInfo(true)}
+            >
+              Order info
+            </Button>
+
+            <OrderInfoModal
+              show={modalShowOrderInfo}
+              onHide={() => setModalShowOrderInfo(false)}
+            />
             <Card.Title>Looking for drivers:</Card.Title>
             <Card.Title>In process:</Card.Title>
+
             {/* <Card.Title>Special title treatment</Card.Title>
           <Card.Text>
             With supporting text below as a natural lead-in to additional
@@ -142,14 +198,14 @@ function UserOrders() {
           <Card.Footer className="text-muted">
             <Button
               className="btn btn-success"
-              onClick={() => setModalShow(true)}
+              onClick={() => setModalShowOrderCreate(true)}
             >
               Create order
             </Button>
 
-            <MyVerticallyCenteredModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
+            <OrderCreateModal
+              show={modalShowOrderCreate}
+              onHide={() => setModalShowOrderCreate(false)}
             />
           </Card.Footer>
         </Card>
