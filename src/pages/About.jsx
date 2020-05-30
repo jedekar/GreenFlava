@@ -24,7 +24,7 @@ function About() {
         <div class="col-xl-4 col-sm-6 mb-5">
           <div class="bg-white rounded shadow-sm py-5 px-4">
             <img
-              src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png"
+              src="https://i.imgur.com/jGQ662f.jpg"
               alt=""
               width="100"
               class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
@@ -72,13 +72,13 @@ function About() {
         <div class="col-xl-4 col-sm-6 mb-5">
           <div class="bg-white rounded shadow-sm py-5 px-4">
             <img
-              src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png"
+              src="https://i.imgur.com/CwgH2NI.png"
               alt=""
               width="100"
               class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
             />
             <h5 class="mb-0">Alexander Khodos</h5>
-            <span class="small text-uppercase text-muted"></span>
+            <span class="small text-uppercase text-muted">Middleware Dev.</span>
             <ul class="social mb-0 list-inline mt-3">
               <li class="list-inline-item">
                 <a href="#" class="social-link">

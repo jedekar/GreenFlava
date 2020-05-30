@@ -8,8 +8,8 @@ function Nav() {
   };
 
   return (
-    <div className="nav">
-      <Link className="no-bottomline" style={navStyle} to="/">
+    <div className="navbar">
+      <Link className="no-bottomline logo" style={navStyle} to="/">
         <h1>GreenFlava</h1>
       </Link>
       <ul className="nav-links">

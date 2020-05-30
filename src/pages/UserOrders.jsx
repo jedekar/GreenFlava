@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
+import Nav from "react-bootstrap/Nav";
 
 class Order {
   constructor(title, locationFrom, locationTo, date, price) {
@@ -18,7 +19,7 @@ class Order {
   }
 }
 
-function MyVerticallyCenteredModal(props) {
+function OrderCreateModal(props) {
   return (
     <Modal
       {...props}
@@ -30,12 +31,6 @@ function MyVerticallyCenteredModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">New order</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <h4>Cargo type:</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p> */}
         <FormGroup>
           <Label>Cargo type:</Label>
           <Input
@@ -131,8 +126,59 @@ function OrderEntry(props) {
           </div> )
 }
 
+function OrderInfoModal(props) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Order info</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Label>Cargo type:</Label>
+        <Row className="show-grid">
+          <Col xs={6} md={6}>
+            <Label>Where from:</Label>
+          </Col>
+          <Col xs={6} md={6}>
+            <Label>Where to:</Label>
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col xs={6} md={6}>
+            <Label>Weight:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Length:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Width:</Label>
+          </Col>
+          <Col xs={2} md={2}>
+            <Label>Height:</Label>
+          </Col>
+        </Row>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Additional comment:</label>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={props.onHide}>
+          Cancel
+        </Button>
+        <Button className="btn-success">Take order</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 function UserOrders() {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(false);
+  const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
+  
   let orders = [];
   for (let i = 0; i < 10; i++) {
     orders.push(new Order('name'+i, 'location'+i, 'location'+(i+1), i, i+100));
@@ -140,39 +186,64 @@ function UserOrders() {
   console.log(orders[1]);
   
   return (
-    /* <div class="container">
-      <div class="row">
-        <div class="orders-box align-self-center">
-          <h2 className="mt-5">Yours orders list:</h2>
-
-          <Button variant="primary" onClick={() => setModalShow(true)}>
-            Create order
-          </Button>
-
-          <MyVerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
-        </div>
-      </div>
-    </div> */
     <div id="userorders">
       <div class="d-flex justify-content-center mt-5">
-        <Card className="text-center" style={{ width: "35rem" }}>
-          <Card.Header as="h5">Your orders</Card.Header>
+        <Card style={{ width: "35rem" }}>
+          <Card.Header>
+            <Nav fill variant="tabs" defaultActiveKey="#first">
+              <Nav.Item>
+                <Nav.Link href="#first">All orders</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#link">My orders</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Card.Header>
           <Card.Body>
-	    <Card.Title>
-	      <OrderEntry order={orders[1]}></OrderEntry>
-              <OrderEntry order={orders[2]}></OrderEntry>
-              <OrderEntry order={orders[3]}></OrderEntry>
-              <OrderEntry order={orders[4]}></OrderEntry>
-              <OrderEntry order={orders[5]}></OrderEntry>
-              <OrderEntry order={orders[6]}></OrderEntry>
-              <OrderEntry order={orders[7]}></OrderEntry>
-              <OrderEntry order={orders[8]}></OrderEntry>
-	    </Card.Title>
-            </Card.Body>
+	  <Card.Title>
+	    <OrderEntry order={orders[1]}></OrderEntry>
+            <OrderEntry order={orders[2]}></OrderEntry>
+            <OrderEntry order={orders[3]}></OrderEntry>
+            <OrderEntry order={orders[4]}></OrderEntry>
+            <OrderEntry order={orders[5]}></OrderEntry>
+            <OrderEntry order={orders[6]}></OrderEntry>
+            <OrderEntry order={orders[7]}></OrderEntry>
+            <OrderEntry order={orders[8]}></OrderEntry>
+	  </Card.Title>
           {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+            <Button
+              className="btn btn-success"
+              onClick={() => setModalShowOrderInfo(true)}
+            >
+              Order info
+            </Button>
+
+            <OrderInfoModal
+              show={modalShowOrderInfo}
+              onHide={() => setModalShowOrderInfo(false)}
+            />
+            <Card.Title>Looking for drivers:</Card.Title>
+            <Card.Title>In process:</Card.Title>
+
+            {/* <Card.Title>Special title treatment</Card.Title>
+          <Card.Text>
+            With supporting text below as a natural lead-in to additional
+            content.
+          </Card.Text> */}
+          </Card.Body>
+          <Card.Footer className="text-muted">
+            <Button
+              className="btn btn-success"
+              onClick={() => setModalShowOrderCreate(true)}
+            >
+              Create order
+            </Button>
+
+            <OrderCreateModal
+              show={modalShowOrderCreate}
+              onHide={() => setModalShowOrderCreate(false)}
+            />
+          </Card.Footer>
         </Card>
       </div>
     </div>
