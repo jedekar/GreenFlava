@@ -112,24 +112,37 @@ function createUser({ password, email }, callback = () => {}) {
  * This function creates new order and connect this order with user who created it.
  *
  * @param {String} creator_id - User's id
- * @param {Array} location_from - 2D point (longitude, latitude)
- * @param {Array} location_to -  2D point (longitude, latitude)
+ * @param {Array} locationFrom - 2D point (longitude, latitude)
+ * @param {Array} locationTo -  2D point (longitude, latitude)
  * @param {Number} weight - Weight of cargo
  * @param {String} typeOfCargo - Type of cargo
  * @param {Function} callback - The callback witch will process with return data.
  */
 function createOrder(
-    { creator_id, location_from, location_to, weight, typeOfCargo, title },
+    {
+        creator_id,
+        locationFrom,
+        locationTo,
+        weight,
+        typeOfCargo,
+        title,
+        length,
+        width,
+        height,
+    },
     callback
 ) {
     const data = {
         creator: creator_id,
         date: new Date(),
-        location_from,
-        location_to,
+        locationFrom,
+        locationTo,
         title,
+        length,
+        width,
+        height,
     };
-    console.log("Data: ", data);
+
     data.status = "Created";
     data.driver = null;
     data.weight = weight;
@@ -181,14 +194,14 @@ function setDriver({ creator_id, driver_id, order_id }, callback) {
             });*/
             return;
         }
-        if (order.creator != creator_id) {
+        if (order.creator !== creator_id) {
             callback(Error("You don't have rights for this action"));
             /*socket.emit("user.setDriver.error", {
                 message: "You have not rights on this action",
             });*/
             return;
         }
-        if (order.status != "Created") {
+        if (order.status !== "Created") {
             callback(Error("The order has no allowed status for this action"));
             /*socket.emit("user.setDriver.error", {
                 message: "The order has no allowed status for this action",
@@ -211,7 +224,7 @@ function setDriver({ creator_id, driver_id, order_id }, callback) {
                     order.driver = driver_id;
                     order.status = "Set Driver";
                     order.candidates = order.candidates.filter(
-                        (el) => el != driver_id
+                        (el) => el !== driver_id
                     );
                     callback(null, order);
                     //socket.emit("user.setDriver.success", order);
@@ -242,11 +255,11 @@ function cancelOrder({ creator_id, order_id }, callback) {
             callback(err);
             return;
         }
-        if (order.creator != creator_id) {
+        if (order.creator !== creator_id) {
             callback(Error("You don't have rights for this action"));
             return;
         }
-        if (order.status == "Fixed") {
+        if (order.status === "Fixed") {
             callback(Error("Order is fixed"));
             return;
         }

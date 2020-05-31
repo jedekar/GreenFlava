@@ -10,8 +10,8 @@ var uniqueValidator = require("mongoose-unique-validator");
  * @class orderSchema
  * @param {mongoose.Schema.Types.ObjectId} creator
  * @param {mongoose.Schema.Types.ObjectId} driver
- * @param {Point} location_from
- * @param {Point} location_to
+ * @param {Point} locationFrom
+ * @param {Point} locationTo
  * @param {Array(mongoose.Schema.Types.ObjectId)} candidates
  * @param {mongoose.Schema.Types.ObjectId} setDriver
  * @param {String} status
@@ -31,8 +31,8 @@ const orderSchema = mongoose.Schema({
         required: false,
     },
     title: String,
-    location_from: String,
-    location_to: String,
+    locationFrom: String,
+    locationTo: String,
     candidates: [],
     setDriver: {
         type: mongoose.Schema.Types.ObjectId,
@@ -43,6 +43,9 @@ const orderSchema = mongoose.Schema({
     status: String,
     typeOfCargo: String,
     weight: Number,
+    length: Number,
+    width: Number,
+    height: Number,
 });
 
 module.exports = mongoose.model("Order", orderSchema, "order");

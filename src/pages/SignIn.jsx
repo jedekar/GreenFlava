@@ -33,7 +33,6 @@ function SignIn() {
                   1. Add some redirect to order
                   2. Save data.token to local store
                 */
-                alert("login success");
                 localStorage.setItem("token", data.token);
                 window.location.href = "/user-orders";
             }

@@ -128,6 +128,30 @@ io.on("connection", (socket) => {
         }
         socket.emit("user.me", { data: user, err: null });
     });
+    socket.on("user.myOrders", (data) => {
+        /**
+         * data = {
+         *      token
+         * }
+         */
+        let user;
+        try {
+            user = authenticateToken(data.token);
+        } catch (err) {
+            socket.emit("user.createOrder", {
+                err: "Bad JWT. Autorize please.",
+                data: null,
+            });
+            return;
+        }
+
+        Order.find({ creator: user._id }, (err, orders) => {
+            socket.emit("user.myOrders", {
+                err: err == null ? err : err.message,
+                data: orders,
+            });
+        });
+    });
 
     socket.on("user.get", (data) => {
         let user;
@@ -135,7 +159,7 @@ io.on("connection", (socket) => {
             user = authenticateToken(data.token);
             // потрібна додати параметри ордера
         } catch (err) {
-            socket.emit("user.createOrder", {
+            socket.emit("user.get", {
                 err: "Bad JWT. Autorize please.",
                 data: null,
             });
@@ -154,11 +178,14 @@ io.on("connection", (socket) => {
         /*
             data =  {
                 token,
-                location_from,
-                location_to,
+                locationFrom,
+                locationTo,
                 title,
                 weight,
                 typeOfCargo
+                length,
+                width,
+                height,
             }
         */
         console.log("Create Order", data);
@@ -178,11 +205,14 @@ io.on("connection", (socket) => {
         user_action.createOrder(
             {
                 creator_id: user._id,
-                location_from: data.location_from,
-                location_to: data.location_to,
+                locationFrom: data.locationFrom,
+                locationTo: data.locationTo,
                 typeOfCargo: data.typeOfCargo,
                 weight: data.weight,
                 title: data.title,
+                length: data.length,
+                height: data.height,
+                width: data.width,
             },
             (err, order) => {
                 if (err) {
