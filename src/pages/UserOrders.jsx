@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "../App.css";
 
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Label, Input } from "reactstrap";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
-import Nav from "react-bootstrap/Nav";
+import { Tabs, Tab } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class Order {
@@ -36,6 +36,19 @@ class Order {
 }
 
 function OrderCreateModal(props) {
+  const [cargoType, setCargoType] = useState("");
+  const [locationFrom, setLocationFrom] = useState("");
+  const [locationTo, setLocationTo] = useState("");
+  const [cargoWeight, setCargoWeight] = useState("");
+  const [cargoLength, setCargoLength] = useState("");
+  const [cargoWidth, setCargoWidth] = useState("");
+  const [cargoHeight, setCargoHeight] = useState("");
+
+  const handleCreateOrder = () => {
+    console.log(cargoWidth);
+    props.onHide();
+  };
+
   return (
     <Modal
       {...props}
@@ -50,7 +63,7 @@ function OrderCreateModal(props) {
         <FormGroup>
           <Label>Cargo type:</Label>
           <Input
-            //onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setCargoType(e.target.value)}
             type="cargo-type"
             placeholder="Clothing, furniture, glass etc."
           />
@@ -63,7 +76,7 @@ function OrderCreateModal(props) {
             <Col xs={6} md={6}>
               <Label>Where from:</Label>
               <Input
-                //onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setLocationFrom(e.target.value)}
                 type="location-from"
                 placeholder="London"
               />
@@ -71,7 +84,7 @@ function OrderCreateModal(props) {
             <Col xs={6} md={6}>
               <Label>Where to:</Label>
               <Input
-                //onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setLocationTo(e.target.value)}
                 type="location-to"
                 placeholder="Madrid"
               />
@@ -84,7 +97,7 @@ function OrderCreateModal(props) {
               <Label>Weight:</Label>
               <div>
                 <Input
-                  //onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setCargoWeight(e.target.value)}
                   type="cargo-weight"
                 />
                 <span>kg</span>
@@ -93,21 +106,21 @@ function OrderCreateModal(props) {
             <Col xs={2} md={2}>
               <Label>Length:</Label>
               <Input
-                //onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setCargoLength(e.target.value)}
                 type="cargo-length"
               />
             </Col>
             <Col xs={2} md={2}>
               <Label>Width:</Label>
               <Input
-                //onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setCargoWidth(e.target.value)}
                 type="cargo-width"
               />
             </Col>
             <Col xs={2} md={2}>
               <Label>Height:</Label>
               <Input
-                //onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setCargoHeight(e.target.value)}
                 type="cargo-height"
               />
               <a>cm</a>
@@ -127,7 +140,9 @@ function OrderCreateModal(props) {
         <Button variant="secondary" onClick={props.onHide}>
           Cancel
         </Button>
-        <Button className="btn-success">Create order</Button>
+        <Button onClick={handleCreateOrder} className="btn-success">
+          Create order
+        </Button>
       </Modal.Footer>
     </Modal>
   );
@@ -198,7 +213,7 @@ function OrderInfoModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">Order info</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Label>Cargo type:}</Label>
+        <Label>Cargo type: </Label>
         <Row className="show-grid">
           <Col xs={6} md={6}>
             <Label>Where from:</Label>
@@ -237,7 +252,6 @@ function OrderInfoModal(props) {
 
 function UserOrders() {
   const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(false);
-  const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
 
   let orders = [];
   for (let i = 0; i < 10; i++) {
@@ -256,46 +270,33 @@ function UserOrders() {
   return (
     <div id="userorders">
       <div class="d-flex justify-content-center mt-5">
-        <Card style={{ width: "40rem" }}>
-          <Card.Header>
-            <Nav fill variant="tabs" defaultActiveKey="#first">
-              <Nav.Item>
-                <Nav.Link href="#first">All orders</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="#link">My orders</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Card.Header>
+        <Card style={{ width: "50rem" }}>
           <Card.Body>
-            <Card.Title>
-              <OrderEntry order={orders[1]}></OrderEntry>
-              <OrderEntry order={orders[2]}></OrderEntry>
-              <OrderEntry order={orders[3]}></OrderEntry>
-              <OrderEntry order={orders[4]}></OrderEntry>
-              <OrderEntry order={orders[5]}></OrderEntry>
-              <OrderEntry order={orders[6]}></OrderEntry>
-              <OrderEntry order={orders[7]}></OrderEntry>
-              <OrderEntry order={orders[8]}></OrderEntry>
-            </Card.Title>
-            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
-            <Button
-              className="btn btn-success"
-              onClick={() => setModalShowOrderInfo(true)}
-            >
-              Order info
-            </Button>
+            <Tabs fill defaultActiveKey="all">
+              <Tab eventKey="all" title="All orders">
+                <Card.Body class="mt-4">
+                  <Card.Title>
+                    <OrderEntry order={orders[1]}></OrderEntry>
+                    <OrderEntry order={orders[2]}></OrderEntry>
+                    <OrderEntry order={orders[3]}></OrderEntry>
+                    <OrderEntry order={orders[4]}></OrderEntry>
+                    <OrderEntry order={orders[5]}></OrderEntry>
+                  </Card.Title>
+                </Card.Body>
+              </Tab>
+              <Tab eventKey="my" title="My orders"></Tab>
+            </Tabs>
 
-            <OrderInfoModal
-              show={modalShowOrderInfo}
-              onHide={() => setModalShowOrderInfo(false)}
-            />
-            {/* <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional
-            content.
-          </Card.Text> */}
+            {/* <Nav fill variant="tabs" defaultActiveKey="#all">
+              <Nav.Item>
+                <Nav.Link href="#all">All orders</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="#my">My orders</Nav.Link>
+              </Nav.Item>
+            </Nav> */}
           </Card.Body>
+
           <Card.Footer className="text-muted">
             <Button
               className="btn btn-success"
