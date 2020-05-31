@@ -5,17 +5,33 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import FormCheck from "react-bootstrap/FormCheck";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
 class Order {
-  constructor(title, locationFrom, locationTo, date, price) {
+  constructor(
+    title,
+    locationFrom,
+    locationTo,
+    date,
+    price,
+    weight,
+    width,
+    height,
+    length
+  ) {
     this.title = title;
     this.locationFrom = locationFrom;
     this.locationTo = locationTo;
     this.date = date;
     this.price = price;
+    this.weight = weight;
+    this.width = width;
+    this.height = height;
+    this.length = length;
   }
 }
 
@@ -118,12 +134,56 @@ function OrderCreateModal(props) {
 }
 
 function OrderEntry(props) {
-  return (<div>
-          {props.order.title
+  const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
+
+  return (
+    <div>
+      {/*           {props.order.title
 	   + '    ' + props.order.locationFrom
 	   + ' -> ' + props.order.locationTo
-	   + '    ' + props.order.price + '$'}
-          </div> )
+	   + '    ' + props.order.price + '$'} */}
+      <div class="card mb-3 bg-light" style={{ width: "18rem;" }}>
+        <div class="card-body">
+          <h5 class="card-title">{props.order.title}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {props.order.price + "$"}
+          </h6>
+          <Container fluid="md" className="mt-3 mb-3">
+            <Row>
+              <Col xs={4} md={4}>
+                <p class="card-text">From: {props.order.locationFrom}</p>
+              </Col>
+              <Col xs={4} md={4}>
+                <i class="fa fa-arrow-right"></i>
+              </Col>
+              <Col xs={4} md={4}>
+                <p class="card-text">To: {props.order.locationTo}</p>
+              </Col>
+            </Row>
+          </Container>
+          <Container fluid="md" className="mt-3 mb-3"></Container>
+
+          <Link class="card-link" onClick={() => setModalShowOrderInfo(true)}>
+            More info
+          </Link>
+          <OrderInfoModal
+            show={modalShowOrderInfo}
+            onHide={() => setModalShowOrderInfo(false)}
+          />
+        </div>
+        <div class="card-footer">
+          <Row class="ml-auto">
+            <Col md={{ span: 4, offset: 4 }}>
+              <small class="text-muted">{props.order.date}</small>
+            </Col>
+            <Col md={{ span: 3, offset: 1 }}>
+              {<Button className="btn btn-success">Take order</Button>}
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function OrderInfoModal(props) {
@@ -138,7 +198,7 @@ function OrderInfoModal(props) {
         <Modal.Title id="contained-modal-title-vcenter">Order info</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Label>Cargo type:</Label>
+        <Label>Cargo type:}</Label>
         <Row className="show-grid">
           <Col xs={6} md={6}>
             <Label>Where from:</Label>
@@ -178,17 +238,25 @@ function OrderInfoModal(props) {
 function UserOrders() {
   const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(false);
   const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
-  
+
   let orders = [];
   for (let i = 0; i < 10; i++) {
-    orders.push(new Order('name'+i, 'location'+i, 'location'+(i+1), i, i+100));
+    orders.push(
+      new Order(
+        "CargoType" + i,
+        "location" + i,
+        "location" + (i + 1),
+        "date" + i,
+        i + 100
+      )
+    );
   }
   console.log(orders[1]);
 
   return (
     <div id="userorders">
       <div class="d-flex justify-content-center mt-5">
-        <Card style={{ width: "35rem" }}>
+        <Card style={{ width: "40rem" }}>
           <Card.Header>
             <Nav fill variant="tabs" defaultActiveKey="#first">
               <Nav.Item>
@@ -200,17 +268,17 @@ function UserOrders() {
             </Nav>
           </Card.Header>
           <Card.Body>
-	  <Card.Title>
-	    <OrderEntry order={orders[1]}></OrderEntry>
-            <OrderEntry order={orders[2]}></OrderEntry>
-            <OrderEntry order={orders[3]}></OrderEntry>
-            <OrderEntry order={orders[4]}></OrderEntry>
-            <OrderEntry order={orders[5]}></OrderEntry>
-            <OrderEntry order={orders[6]}></OrderEntry>
-            <OrderEntry order={orders[7]}></OrderEntry>
-            <OrderEntry order={orders[8]}></OrderEntry>
-	  </Card.Title>
-          {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+            <Card.Title>
+              <OrderEntry order={orders[1]}></OrderEntry>
+              <OrderEntry order={orders[2]}></OrderEntry>
+              <OrderEntry order={orders[3]}></OrderEntry>
+              <OrderEntry order={orders[4]}></OrderEntry>
+              <OrderEntry order={orders[5]}></OrderEntry>
+              <OrderEntry order={orders[6]}></OrderEntry>
+              <OrderEntry order={orders[7]}></OrderEntry>
+              <OrderEntry order={orders[8]}></OrderEntry>
+            </Card.Title>
+            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             <Button
               className="btn btn-success"
               onClick={() => setModalShowOrderInfo(true)}
@@ -222,9 +290,6 @@ function UserOrders() {
               show={modalShowOrderInfo}
               onHide={() => setModalShowOrderInfo(false)}
             />
-            <Card.Title>Looking for drivers:</Card.Title>
-            <Card.Title>In process:</Card.Title>
-
             {/* <Card.Title>Special title treatment</Card.Title>
           <Card.Text>
             With supporting text below as a natural lead-in to additional
