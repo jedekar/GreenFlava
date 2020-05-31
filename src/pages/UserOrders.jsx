@@ -283,26 +283,6 @@ function ButtonModalShowOrderCreate() {
     );
 }
 
-function ButtonModalShowOrderInfo() {
-    const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
-
-    return (
-        <>
-            <Button
-                className="btn btn-success"
-                onClick={() => setModalShowOrderInfo(true)}
-            >
-                Order info
-            </Button>
-
-            <OrderInfoModal
-                show={modalShowOrderInfo}
-                onHide={() => setModalShowOrderInfo(false)}
-            />
-        </>
-    );
-}
-
 class UserOrders extends React.Component {
     constructor(props) {
         super(props);
@@ -345,6 +325,7 @@ class UserOrders extends React.Component {
         this.state.orders.forEach((order) => {
             items.push(<OrderEntry order={order}></OrderEntry>);
         });
+      items.push(<OrderEntry order={{title: "titl", locationTo: "TOOO", price: 1000}}></OrderEntry>);
 
         return (
     <div id="userorders">
@@ -363,9 +344,6 @@ class UserOrders extends React.Component {
             </Tabs>
           </Card.Body>
           <Card.Footer className="text-muted">
-                            <ButtonModalShowOrderInfo />
-                        </Card.Body>
-                        <Card.Footer className="text-muted">
                             <ButtonModalShowOrderCreate />
                         </Card.Footer>
                     </Card>
