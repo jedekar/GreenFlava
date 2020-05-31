@@ -40,6 +40,11 @@ function About() {
                   <i class="fa fa-instagram"></i>
                 </a>
               </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/niksonax" class="social-link">
+                  <i class="fa fa-github"></i>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -56,13 +61,8 @@ function About() {
             <span class="small text-uppercase text-muted">Backend Dev.</span>
             <ul class="social mb-0 list-inline mt-3">
               <li class="list-inline-item">
-                <a href="#" class="social-link">
-                  <i class="fa fa-facebook-f"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" class="social-link">
-                  <i class="fa fa-instagram"></i>
+                <a href="https://github.com/Toolf" class="social-link">
+                  <i class="fa fa-github"></i>
                 </a>
               </li>
             </ul>
@@ -81,8 +81,8 @@ function About() {
             <span class="small text-uppercase text-muted">Middleware Dev.</span>
             <ul class="social mb-0 list-inline mt-3">
               <li class="list-inline-item">
-                <a href="#" class="social-link">
-                  <i class="fa fa-facebook-f"></i>
+                <a href="https://github.com/jedekar" class="social-link">
+                  <i class="fa fa-github"></i>
                 </a>
               </li>
             </ul>
