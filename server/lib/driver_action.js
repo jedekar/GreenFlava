@@ -22,7 +22,7 @@ function acceptOrder({ driver_id, order_id }, callback) {
             callback(Error("Order is not found"));
             return;
         }
-        if (order.status == "Fixed" || order.status == "Cancel") {
+        if (order.status === "Fixed" || order.status === "Cancel") {
             callback(Error("Order is fixed or cancel"));
             return;
         }
@@ -50,15 +50,15 @@ function fixOrder({ driver_id, order_id }, callback) {
             callback(Error("Order is not found"));
             return;
         }
-        if (order.status == "Cancel") {
+        if (order.status === "Cancel") {
             callback(Error("Order is canceled"));
             return;
         }
-        if (order.status == "Fixed") {
+        if (order.status === "Fixed") {
             callback(Error("Order is fixed"));
             return;
         }
-        if (order.setDriver != driver_id) {
+        if (order.setDriver !== driver_id) {
             callback(Error("Driver is not set on this order"));
             return;
         }
@@ -76,7 +76,7 @@ function fixOrder({ driver_id, order_id }, callback) {
                     order.driver = driver_id;
                     order.status = "Fixed";
                     order.setDriver = null;
-                    scallback(null, order);
+                    callback(null, order);
                 }
             }
         );
@@ -94,15 +94,15 @@ function cancelOrder({ driver_id, order_id }, callback) {
             callback(Error("Order is not found"));
             return;
         }
-        if (order.status == "Cancel") {
+        if (order.status === "Cancel") {
             callback(Error("Order is canceled"));
             return;
         }
-        if (order.status == "Fixed") {
+        if (order.status === "Fixed") {
             callback(Error("Order is fixed"));
             return;
         }
-        if (order.setDriver != driver_id) {
+        if (order.setDriver !== driver_id) {
             callback(Error("Driver is not set on this order"));
             return;
         }
