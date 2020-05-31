@@ -51,6 +51,10 @@ app.get("/clear", (req, res) => {
     Order.remove({}, () => {});
 });
 
+app.get("/clearOrders", (req, res) => {
+    Order.remove({}, () => {});
+});
+
 app.get("/getOrders", (req, res) => {
     Order.find({}, (err, orders) => res.send(orders));
 });
@@ -152,8 +156,12 @@ io.on("connection", (socket) => {
                 token,
                 location_from,
                 location_to,
+                title,
+                weight,
+                typeOfCargo
             }
         */
+        console.log("Create Order", data);
         // check JWT
         let user;
         try {
@@ -174,15 +182,18 @@ io.on("connection", (socket) => {
                 location_to: data.location_to,
                 typeOfCargo: data.typeOfCargo,
                 weight: data.weight,
+                title: data.title,
             },
             (err, order) => {
                 if (err) {
+                    console.log("Err:", err);
                     socket.emit("user.createOrder", {
                         err: err.message,
                         data: null,
                     });
                 } else {
                     //change it
+                    console.log("Order:", order);
                     io.emit("global.newOrder", { err: null, data: order });
                     socket.emit("user.createOrder", { err: null, data: order });
                 }
@@ -479,7 +490,7 @@ io.on("connection", (socket) => {
                 token,
             }
         */
-        let user;
+        /*let user;
         try {
             user = authenticateToken(data.token);
         } catch (err) {
@@ -487,9 +498,10 @@ io.on("connection", (socket) => {
                 err: "Bad JWT. Autorize please.",
             });
             return;
-        }
+        }*/
 
         Order.find({}, (err, orders) => {
+            console.log("orders", orders);
             socket.emit("driver.orderList", {
                 err: err == null ? err : err.message,
                 data: orders,

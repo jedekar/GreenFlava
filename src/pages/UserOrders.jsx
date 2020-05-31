@@ -11,6 +11,8 @@ import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
+const socket = require("../globals/socket");
+
 class Order {
     constructor(
         title,
@@ -254,6 +256,47 @@ function OrderInfoModal(props) {
     );
 }
 
+function ButtonModalShowOrderCreate() {
+    const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(
+        false
+    );
+
+    return (
+        <>
+            <Button
+                className="btn btn-success"
+                onClick={() => setModalShowOrderCreate(true)}
+            >
+                Create order
+            </Button>
+            <OrderCreateModal
+                show={modalShowOrderCreate}
+                onHide={() => setModalShowOrderCreate(false)}
+            />
+        </>
+    );
+}
+
+function ButtonModalShowOrderInfo() {
+    const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(false);
+
+    return (
+        <>
+            <Button
+                className="btn btn-success"
+                onClick={() => setModalShowOrderInfo(true)}
+            >
+                Order info
+            </Button>
+
+            <OrderInfoModal
+                show={modalShowOrderInfo}
+                onHide={() => setModalShowOrderInfo(false)}
+            />
+        </>
+    );
+}
+
 class UserOrders extends React.Component {
     constructor(props) {
         super(props);
@@ -268,18 +311,19 @@ class UserOrders extends React.Component {
 
         socket.on("driver.orderList", ({ err, data }) => {
             console.log("driver.orderList", data);
+
             this.setState({ orders: data });
         });
 
         socket.on("global.newOrder", ({ err, data }) => {
+            console.log("newOrder");
             const order = data;
             if (err) {
                 console.log("Err:", err);
                 return;
             }
             console.log(order);
-            let newOrders = [...this.state.orders];
-            newOrders.push(order);
+            let newOrders = [order, ...this.state.orders];
             console.log("newOrders: ", newOrders);
             this.setState({ orders: newOrders });
         });
@@ -290,22 +334,10 @@ class UserOrders extends React.Component {
     }
 
     render() {
-        /**
-         * TODO
-         * Change this
-         *
-         */
-
-        const [modalShowOrderCreate, setModalShowOrderCreate] = React.useState(
-            false
-        );
-        const [modalShowOrderInfo, setModalShowOrderInfo] = React.useState(
-            false
-        );
-
-        let orders = [];
+        let items = [];
+        console.log(this.state);
         this.state.orders.forEach((order) => {
-            orders.push(<OrderEntry order={order}></OrderEntry>);
+            items.push(<OrderEntry order={order}></OrderEntry>);
         });
 
         return (
@@ -325,19 +357,9 @@ class UserOrders extends React.Component {
                             </Nav>
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title>{orders}</Card.Title>
+                            <Card.Title>{items}</Card.Title>
                             {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
-                            <Button
-                                className="btn btn-success"
-                                onClick={() => setModalShowOrderInfo(true)}
-                            >
-                                Order info
-                            </Button>
-
-                            <OrderInfoModal
-                                show={modalShowOrderInfo}
-                                onHide={() => setModalShowOrderInfo(false)}
-                            />
+                            <ButtonModalShowOrderInfo />
                             <Card.Title>Looking for drivers:</Card.Title>
                             <Card.Title>In process:</Card.Title>
 
@@ -348,17 +370,7 @@ class UserOrders extends React.Component {
       </Card.Text> */}
                         </Card.Body>
                         <Card.Footer className="text-muted">
-                            <Button
-                                className="btn btn-success"
-                                onClick={() => setModalShowOrderCreate(true)}
-                            >
-                                Create order
-                            </Button>
-
-                            <OrderCreateModal
-                                show={modalShowOrderCreate}
-                                onHide={() => setModalShowOrderCreate(false)}
-                            />
+                            <ButtonModalShowOrderCreate />
                         </Card.Footer>
                     </Card>
                 </div>

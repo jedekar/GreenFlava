@@ -119,15 +119,19 @@ function createUser({ password, email }, callback = () => {}) {
  * @param {Function} callback - The callback witch will process with return data.
  */
 function createOrder(
-    { creator_id, location_from, location_to, weight, typeOfCargo },
+    { creator_id, location_from, location_to, weight, typeOfCargo, title },
     callback
 ) {
-    const data = { creator: creator_id, location_from, location_to };
-
+    const data = {
+        creator: creator_id,
+        date: new Date(),
+        location_from,
+        location_to,
+        title,
+    };
+    console.log("Data: ", data);
     data.status = "Created";
     data.driver = null;
-    data.location_from = { type: "Point", coordinates: data.location_from };
-    data.location_to = { type: "Point", coordinates: data.location_to };
     data.weight = weight;
     data.typeOfCargo = typeOfCargo;
 
