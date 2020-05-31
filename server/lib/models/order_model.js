@@ -30,26 +30,16 @@ const orderSchema = mongoose.Schema({
         ref: "User",
         required: false,
     },
-    location_from: {
-        type: {
-            type: String,
-            default: "Point",
-        },
-        coordinates: { type: [Number] },
-    },
-    location_to: {
-        type: {
-            type: String,
-            default: "Point",
-        },
-        coordinates: { type: [Number] },
-    },
+    title: String,
+    location_from: String,
+    location_to: String,
     candidates: [],
     setDriver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: false,
     },
+    date: { type: Date, default: new Date() },
     status: String,
     typeOfCargo: String,
     weight: Number,
