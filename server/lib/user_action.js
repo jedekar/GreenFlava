@@ -94,7 +94,11 @@ function createUser({ password, email }, callback = () => {}) {
 
     user.save()
         .then((data) => {
-            callback(null, { _id: user._id });
+            callback(null, {
+                _id: data._id,
+                orders: data.orders,
+                email: data.email,
+            });
             //socket.emit("user.create.success");
         })
         .catch((err) => {
@@ -118,7 +122,7 @@ function createOrder(
     { creator_id, location_from, location_to, weight, typeOfCargo },
     callback
 ) {
-    data = { creator: creator_id, location_from, location_to };
+    const data = { creator: creator_id, location_from, location_to };
 
     data.status = "Created";
     data.driver = null;

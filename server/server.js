@@ -8,16 +8,6 @@ const Order = require("./lib/models/order_model");
 const md5 = require("md5");
 const { authenticateToken } = require("./lib/helpers");
 
-//mongodb connection-------------------------------------------
-/*
-const MongoClient = require("mongodb").MongoClient;
-const uri =
-    "mongodb+srv://admin:1@cluster0-psx9m.mongodb.net/test?retryWrites=true&w=majority/IPZdatabase";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect().then(() => console.log("Successfully connect to MongoDB"));
-*/
-//
-//"mongodb+srv://admin:1@cluster0-psx9m.mongodb.net/test?retryWrites=true&w=majority"
 mongoose
     .connect("mongodb://127.0.0.1:27017/IPZdatabase", {
         useNewUrlParser: true,
@@ -31,7 +21,7 @@ mongoose
 const app = express();
 
 //------ROUTING------------------
-/*
+
 app.get("/users", (req, res) => {
     console.log("HERE");
     res.send(global.userSessions);
@@ -68,17 +58,17 @@ app.get("/getOrders", (req, res) => {
 app.get("/getOrder", (req, res) => {
     Order.findById("5eb946628df1cc0d68f7be60", (err, order) => res.send(order));
 });
-*/
+
 //-------------------------------
 
 //-------Socket server-------------------
 const socketIO = require("socket.io");
 
-server = http.Server(app);
+const server = http.Server(app);
 server.listen(5000);
 console.log("Servet start on port 5000");
 
-io = socketIO(server);
+const io = socketIO(server);
 
 const driver_action = require("./lib/driver_action");
 const user_action = require("./lib/user_action");
@@ -95,7 +85,10 @@ io.on("connection", (socket) => {
             }
         */
         user_action.createUser(data, (err, data) => {
-            socket.emit("user.create", { err: err.message, data: null });
+            socket.emit("user.create", {
+                err: err == null ? err : err.message,
+                data: data,
+            });
         });
     });
     socket.on("user.login", (data) => {
@@ -146,7 +139,10 @@ io.on("connection", (socket) => {
         }
 
         user_action.getUser({ user_id: data.user }, (err, user) => {
-            socket.emit("user.get", { err: err.message, data: user });
+            socket.emit("user.get", {
+                err: err == null ? err : err.message,
+                data: user,
+            });
         });
     });
 
@@ -494,7 +490,10 @@ io.on("connection", (socket) => {
         }
 
         Order.find({}, (err, orders) => {
-            socket.emit("driver.orderList", { err: err.message, data: orders });
+            socket.emit("driver.orderList", {
+                err: err == null ? err : err.message,
+                data: orders,
+            });
         });
     });
 
