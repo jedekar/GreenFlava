@@ -1,7 +1,6 @@
 import React from "react";
 import "./w3styles.css";
 import "../App.css";
-import { Button } from "reactstrap";
 
 function HomePage() {
   return (
@@ -29,15 +28,15 @@ function HomePage() {
           </p>
         </div>
         <div
-          class="w3-display-bottomleft w3-text-grey w3-large"
+          class="w3-display-bottomright-about w3-text-grey w3-large"
           style={{ padding: "24px 48px" }}
         >
-          <i class="fa fa-facebook-official w3-hover-opacity"></i>
+          {/* <i class="fa fa-facebook-official w3-hover-opacity"></i>
           <i class="fa fa-instagram w3-hover-opacity"></i>
           <i class="fa fa-snapchat w3-hover-opacity"></i>
           <i class="fa fa-pinterest-p w3-hover-opacity"></i>
           <i class="fa fa-twitter w3-hover-opacity"></i>
-          <i class="fa fa-linkedin w3-hover-opacity"></i>
+          <i class="fa fa-linkedin w3-hover-opacity"></i> */}
         </div>
       </header>
     </div>
